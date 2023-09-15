@@ -30,7 +30,9 @@ bot.on('message', (message) => {
                             seez.su \n
                             https://seez.su/movie/${res.id} \n
                             movie-web: \n
-                            https://movie-web.app/search/movie/${searchQuery.replace(" ","%20")} \n
+                            https://movie-web.app/search/movie/${searchQuery.replace(" ", "%20")} \n
+                            smashystream: \n
+                            https://embed.smashystream.com/playere.php?tmdb=${res.id} \n
                             `
                             bot.sendMessage(message.chat.id, msg + links)
 
@@ -43,7 +45,9 @@ bot.on('message', (message) => {
                             seez.su \n
                             https://seez.su/tv/${res.id} \n
                             movie-web: \n
-                            https://movie-web.app/search/series/${searchQuery.replace(" ","%20")}
+                            https://movie-web.app/search/series/${searchQuery.replace(" ", "%20")}
+                            smashystream: \n
+                             https://embed.smashystream.com/playere.php?tmdb=${res.id}&season=1&episode=1 \n
                             `
                             bot.sendMessage(message.chat.id, msg + links)
 
