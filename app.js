@@ -4,7 +4,6 @@ const axios = require('axios');
 
 const bot = new TelegramBot(process.env.TM_TOKEN, { polling: true, pollingInterval: 1000 });
 
-let retryTimeout;
 
 bot.on('message', (message) => {
     if (message.text) {
@@ -66,11 +65,6 @@ bot.on('message', (message) => {
             })
             .catch(error => {
                 console.error(error);
-                bot.sendMessage(message.chat.id, 'Error searching for movie');
-                clearTimeout(retryTimeout);
-                retryTimeout = setTimeout(() => {
-                    bot.polling(message.chat.id);
-                }, 1000);
             });
     }
 });
