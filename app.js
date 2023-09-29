@@ -4,10 +4,11 @@ require("dotenv").config()
 
 const bot = new TelegramBot(process.env.TM_TOKEN, {
     polling: {
-        interval:500,
+        interval:1000,
         autoStart:true,
         params:{
             timeout: 10 ,
+            log: true
         }
     }
 });
@@ -37,7 +38,7 @@ bot.on('message', async (message) => {
                             seez.su \n
                             https://seez.su/${res.media_type}/${res.id} \n
                             movie-web: \n
-                            https://movie-web.app/search/${res.media_type}/${searchQuery.replace(" ", "%20")}
+                            https://movie-web.app/search/${res.media_type === "tv" ? "series" : res.media_type }/${searchQuery.replace(" ", "%20")}
                             `
                             return bot.sendMessage(message.chat.id, msg + links);
                         } else {
