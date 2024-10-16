@@ -4,10 +4,10 @@ require("dotenv").config()
 
 const bot = new TelegramBot(process.env.TM_TOKEN, {
     polling: {
-        interval:1000,
-        autoStart:true,
-        params:{
-            timeout: 10 ,
+        interval: 1000,
+        autoStart: true,
+        params: {
+            timeout: 10,
             log: true
         }
     }
@@ -16,7 +16,12 @@ const bot = new TelegramBot(process.env.TM_TOKEN, {
 bot.on('message', async (message) => {
     if (message.text) {
         const searchQuery = message.text.trim();
-        await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.API_KEY}&query=${searchQuery}`)
+        await axios.get(`https://api.themoviedb.org/3/search/multi?query=${searchQuery}`, {
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${process.env.API_KEY}`
+            }
+        })
             .then(response => {
                 const results = response.data.results;
                 if (results.length > 0) {
@@ -38,7 +43,7 @@ bot.on('message', async (message) => {
                             seez.su \n
                             https://seez.su/${res.media_type}/${res.id} \n
                             movie-web: \n
-                            https://movie-web.app/search/${res.media_type === "tv" ? "series" : res.media_type }/${searchQuery.replace(" ", "%20")}
+                            https://movie-web.app/search/${res.media_type === "tv" ? "series" : res.media_type}/${searchQuery.replace(" ", "%20")}
                             `
                             return bot.sendMessage(message.chat.id, msg + links);
                         } else {
